@@ -5,6 +5,12 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
+ExecStartPost=/usr/bin/systemctl start pacemaker.service
+ExecStop=/usr/bin/systemctl stop pacemaker.service
+
+# If you use watchdog of corosync, uncomment the line below.
+#ExecStartPre=/sbin/modprobe softdog soft_margin=60
+
 ExecStart=@INITWRAPPERSDIR@/corosync start
 ExecStop=@INITWRAPPERSDIR@/corosync stop
 Type=forking
