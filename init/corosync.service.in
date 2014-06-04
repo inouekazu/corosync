@@ -8,6 +8,13 @@ After=network-online.target
 ExecStart=@INITWRAPPERSDIR@/corosync start
 ExecStop=@INITWRAPPERSDIR@/corosync stop
 Type=forking
+Restart=on-failure
+
+# If you use watchdog of corosync, uncomment the line of the
+# following ExecStartPre= and RestartSec=.
+#ExecStartPre=/sbin/modprobe softdog soft_margin=60
+# Specify a period longer than soft_margin as RestartSec.
+#RestartSec=70
 
 [Install]
 WantedBy=multi-user.target
